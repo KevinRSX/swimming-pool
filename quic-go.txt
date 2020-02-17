@@ -1,0 +1,59 @@
+**QUIC-GO**
+
+You can use the certificate from quic-go by NOT using the -certpath option. Based on:
+   - https://medium.com/@patdhlk/how-to-install-go-1-9-1-on-ubuntu-16-04-ee64c073cd79
+   - Reference: https://github.com/lucas-clemente/quic-go
+
+**1. Go Installation**
+======
+Note that you get the right version!
+   - cd /tmp
+   - wget https://storage.googleapis.com/golang/go1.9.1.linux-amd64.tar.gz
+   - tar xfz go1.9.1.linux-amd64.tar.gz
+   - *as root:* mv go /usr/local
+   - *as normal user again:* mkdir ~/go
+
+
+
+** 2. Testing QUIC-Go**
+======
+   - cd ~/go
+   - /usr/local/go/bin/go get github.com/lucas-clemente/quic-go
+   - cd ~/go/src/github.com/lucas-clemente/quic-go
+   - /usr/local/go/bin/go get -t -u ./...
+
+
+**Run tests, if you see "No Chrome executable found." (don't worry)**
+   - /usr/local/go/bin/go test ./...
+
+**Disable verification of server certificate in client:**
+   - nano internal/handshake/crypto_setup_client.go
+   - **- **              err = h.certManager.Verify(h.hostname)
+   - **+**               err = nil // h.certManager.Verify(h.hostname)
+
+
+**Fetch test data:**
+   - mkdir /tmp/quic-data
+   - cd /tmp/quic-data
+   - wget https://www.example.org
+
+
+
+** 3. Start Server**
+======
+   - cd ~/go/src/github.com/lucas-clemente/quic-go
+   - /usr/local/go/bin/go run example/main.go -www /tmp/quic-data
+
+
+
+
+** 4. Start Client**
+======
+   - cd ~/go/src/github.com/lucas-clemente/quic-go
+   - /usr/local/go/bin/go run example/client/main.go https://localhost:6121/
+
+
+--------------------------------------------------------------------------------
+Original: https://www.uio.no/studier/emner/matnat/ifi/INF5072/v18/quicgo.txt
+As created on 2019.9, last modified on 2020.9
+(Refer to the above dates instead of the ones in commit log)

@@ -1,18 +1,19 @@
 Install cuda following the instructions on its official website:
 Use
-nvcc -V
+$ nvcc -V
 to confirm it is successfully installed and the version you are using
 
 
 Install appropriate Nvidia driver:
 Add sources:
-sudo add-apt-repository ppa:graphics-drivers/ppa
-sudo apt-get update
+$ sudo add-apt-repository ppa:graphics-drivers/ppa
+$ sudo apt-get update
 Check available versions of the driver:
-ubuntu-drivers devices
+$ ubuntu-drivers devices
 Choose the recommended version listed by the above command to install:
-sudo apt-get-install nvidia-driver-XXX
+$ sudo apt-get-install nvidia-driver-XXX
 Reboot after installing the driver
+
 
 If your system uses UEFI secure boot, you need to enroll MOK. Follow the instructions
 and choose "Enroll MOK" on reboot.
@@ -21,7 +22,6 @@ Test in PyTorch:
 >>> import torch
 >>> torch.cuda.is_available()
 True
-
 
 --------------------------------------------------------------------------------
 As created on 2020.3.21, last modified on 2020.3.21

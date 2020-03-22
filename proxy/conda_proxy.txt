@@ -1,6 +1,6 @@
 Conda's proxy setting is defined in .condarc
 The location could be checked by running:
-conda config
+$ conda config
 and observe the location in the "config file" section
 
 

@@ -1,0 +1,10 @@
+To use proxy to connect to ssh:
+Use netcat (nc) in ProxyCommand option:
+$ ssh -o "ProxyCommand nc -X 5 -x proxy.net:1080 %h %p" user@server.net
+
+Alternatively, put ProxyCommand into ~/.ssh/config
+--------------------------------------------------------------------------------
+As created on 2020.2.17, last modified on 2020.2.17
+Original & more explanation: https://www.jianshu.com/p/f6990f3a52eb (Chinese)
+(Refer to the above dates instead of the ones in commit log)
+

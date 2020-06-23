@@ -1,0 +1,8 @@
+Cleaning:
+$ gn clean [path]
+Generation (with Xcode, target cpu is based on specific architectures):
+$ gn gen [path] --args='target_os="mac" target_cpu="x64" is_component_build=false' --ide=xcode
+
+--------------------------------------------------------------------------------
+As created on 2020.6.23, last modified on 2020.6.23
+(Refer to the above dates instead of the ones in commit log)

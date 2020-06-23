@@ -1,0 +1,15 @@
+Virtual Camera for MacBook
+Download: https://github.com/johnboiles/obs-mac-virtualcam
+To start, in OBS, tools->start virtual camera
+To stop and use the real camera, first stop the virtual camera in the same tab
+in OBS, then change the device name:
+$ cd /Library/CoreMediaIO/Plug-Ins/DAL
+$ sudo mv obs-mac-virtualcam.plugin obs-mac-virtualcam.plug
+
+Note that the correct extension is .plugin, need to change it back to reopen
+virtual cam:
+$ sudo mv obs-mac-virtualcam.plug obs-mac-virtualcam.plugin
+
+--------------------------------------------------------------------------------
+As created on 2020.6.22, last modified on 2020.6.23
+(Refer to the above dates instead of the ones in commit log)

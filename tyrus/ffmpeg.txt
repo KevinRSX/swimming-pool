@@ -1,0 +1,11 @@
+This file contains several useful commands of ffmpeg
+
+Install ffmpeg on Mac
+$ brew install ffmpeg
+
+List all media devices (camera & microphone):
+$ ffmpeg -f avfoundation -list_devices true -i ""
+
+--------------------------------------------------------------------------------
+As created on 2020.6.23, last modified on 2020.6.23
+(Refer to the above dates instead of the ones in commit log)

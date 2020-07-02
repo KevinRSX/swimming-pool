@@ -21,7 +21,9 @@ VCMGenericDecoder::Decode(const VCMEncodedFrame& frame, Timestamp now)
 
 
 
-`frame_buffer_` is in `VideoReceiveStream2`.
+Notes:
+
+- ` frame_buffer_` is in `VideoReceiveStream2`.
 
 
 
@@ -34,6 +36,9 @@ VCMDecodedFrameCallback: modules/video_coding/generic_decoder.cc
 VideoStreamDecoder: video/video_stream_decoder2.cc
 IncomeVideoStream: common_video/income_video_stream.cc
 VideoRenderFrames: common_video/video_render_frames.cc
+WebRtcVideoChannel: media/engine/webrtc_video_engine.cc
+VideoBroadcaster: media/base/video_broadcaster.cc
+VideoRendererAdapter: sdk/objc/api/RTCVideoRendererAdapter.mm
 ```
 
 
@@ -47,6 +52,26 @@ VCMDecodedFrameCallback::Decoded(VideoFrame& decodedImage, absl::optional<int32_
 VideoStreamDecoder::FrameToRender(VideoFrame& video_frame, absl::optional<uint8_t> qp, int32_t decode_time_ms, VideoContentType content_type) ->
 IncomingVideoStream::OnFrame(const VideoFrame& video_frame) ->
 IncomingVideoStream::Dequeue() ->
-absl::optional<VideoFrame> VideoRenderFrames::FrameToRender()
+[VideoReceiveStream2::OnFrame(const VideoFrame& video_frame), 
+absl::optional<VideoFrame> VideoRenderFrames::FrameToRender()]
+
+VideoReceiveStream2::OnFrame(const VideoFrame& video_frame) ->
+WebRtcVideoChannel::WebRtcVideoReceiveStream::OnFrame(const webrtc::VideoFrame& frame) ->
+VideoBroadcaster::OnFrame(const webrtc::VideoFrame& frame) ->
+(Mac and IOS) VideoRendererAdapter::OnFrame(const webrtc::VideoFrame& nativeVideoFrame) ->
+Platform-specific implementations
 ```
 
+
+
+Note:
+
+- `callback_` in `IncomingVideoStream` is a `rtc::VideoSinkInterface<VideoFrame>`, which is inherited by `VideoReceiveStream2`
+- `VideoBroadcaster` implements both a source (producer of video & audio track) and sink (consumer of video & audio track), where `OnFrame()` is a method of the sink. Rendering methods are called before `VideoBroadcaster`
+
+
+
+## Objective-C Application
+
+- Codes are in `sdk/objc/`
+- `.mm` are Objective-C++ while `.m` are Objective-C

@@ -1,0 +1,12 @@
+Find sizes of files recursively:
+$ sudo du -a [dir] | sort -n -r | head -n 20
+
+Find sizes of hard disks
+$ df -h
+
+
+--------------------------------------------------------------------------------
+Reference: https://www.cyberciti.biz/faq/linux-find-largest-file-in-directory-recursively-using-find-du/
+As created on 2020.6.25, last modified on 2020.6.25
+(Refer to the above dates instead of the ones in commit log)
+

@@ -1,0 +1,16 @@
+Mounting Google Drive:
+>>> from google.colab import drive
+>>> drive.mount('/content/gdrive')
+
+Update Drive Path:
+>>> import sys
+>>> sys.path.append('/content/gdrive/My Drive')
+
+
+
+
+--------------------------------------------------------------------------------
+Reference: https://colab.research.google.com/drive/1uvHuizCBqFgvbCwEhK7FvU8JW0AfxgJw#scrollTo=psH0aLrvoh78
+As created on 2020.9.6, last modified on 2020.9.6
+(Refer to the above dates instead of the ones in commit log)
+

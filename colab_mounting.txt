@@ -1,4 +1,4 @@
-Mounting Google Drive:
+Mount Google Drive:
 >>> from google.colab import drive
 >>> drive.mount('/content/gdrive')
 
@@ -6,8 +6,15 @@ Update Drive Path:
 >>> import sys
 >>> sys.path.append('/content/gdrive/My Drive')
 
+If there is a direct child in My Drive named x.py, you may import it with:
+>>> import x
 
+The appended system path can be set to any directory in the Google Drive folders, which will be the workspace.
 
+To pass the authentication, make sure the following:
+ - Direct children (files/folders) to my drive should be as few as possible
+ - Empty the trash
+ - Authentication code should be copied by selecting the text manually from the popped out browser tab. Coping by clicking the "copy" button might result in timeout. 
 
 --------------------------------------------------------------------------------
 Reference: https://colab.research.google.com/drive/1uvHuizCBqFgvbCwEhK7FvU8JW0AfxgJw#scrollTo=psH0aLrvoh78

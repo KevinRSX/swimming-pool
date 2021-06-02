@@ -1,3 +1,7 @@
-Adding existing project to GitHub:
+Adding an existing project to GitHub:
 https://help.github.com/en/articles/adding-an-existing-project-to-github-using-the-command-line
+
+Clone a single branch:
+https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/
+git clone --branch <branchname> --single-branch <remote-repo-url>
 

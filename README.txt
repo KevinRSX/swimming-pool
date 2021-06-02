@@ -1,4 +1,3 @@
-123456789|123456789|123456789|123456789|123456789|123456789|123456789|123456789|
 configuration-instruction
 -------------------------
 Instructions for configuring programming environments

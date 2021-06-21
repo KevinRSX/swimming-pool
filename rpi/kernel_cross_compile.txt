@@ -4,6 +4,8 @@ Environment:
  - aarch64
  - Cross compilation using a Ubuntu virtual machine in x86 system
  - Both boot partition and rootfs are stored in a TF card
+ - Ubuntu Desktop 21.04 on RPI, meaning the default kernel image name is vmlinuz,
+ not kernel8, the default name for Raspberry PI OS.
 
 1. Install toolchain:
         sudo apt install git bc bison flex libssl-dev make libc6-dev libncurses5-dev

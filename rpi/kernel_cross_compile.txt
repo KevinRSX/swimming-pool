@@ -1,0 +1,57 @@
+123456789|123456789|123456789|123456789|123456789|123456789|123456789|123456789|
+Environment: 
+ - RPI4
+ - aarch64
+ - Cross compilation using a Ubuntu virtual machine in x86 system
+ - Both boot partition and rootfs are stored in a TF card
+
+1. Install toolchain:
+        sudo apt install git bc bison flex libssl-dev make libc6-dev libncurses5-dev
+
+2. Install cross compiler:
+        sudo apt install crossbuild-essential-arm64
+
+3. Ensure the following: ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu-
+
+4. Make the config, default for RPI4 is the following:
+        make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
+Sometimes the kernel won't compile. Simply disable the corresponding CONFIG item
+if it is not needed.
+
+5. Compile the kernel (change cores to 1.5 * cores you allocate to your VM):
+        make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs -j3
+
+6. Create directories for mounting
+        mkdir mnt/
+        mkdir mnt/fat32 # /boot/firmware
+        mkdir mnt/ext4 # rootfs: /
+
+7. Plug in the TF card and connect it to the VM
+
+8. Mount the partitions to the created directories:
+        sudo mount /dev/sdb1 mnt/fat32
+        sudo mount /dev/sdb2 mnt/ext4
+For different sdb devices, use $lsblk to check which are the TF card partitions
+
+9. Install kernel modules:
+        sudo env PATH=$PATH make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=mnt/ext4 modules_install
+
+10. Backup the kernel image, copy the new image and dtb files:
+        sudo cp mnt/fat32/$KERNEL mnt/fat32/$KERNEL.old
+        sudo cp arch/arm64/boot/Image mnt/fat32/$KERNEL
+        sudo cp arch/arm64/boot/dts/broadcom/*.dtb mnt/fat32/
+        sudo cp arch/arm64/boot/dts/overlays/*.dtb* mnt/fat32/overlays/
+        sudo cp arch/arm64/boot/dts/overlays/README mnt/fat32/overlays/
+
+11. Unmount and eject the TF card:
+        sudo umount mnt/fat32
+        sudo umount mnt/ext4
+
+More info:
+ - https://www.raspberrypi.org/documentation/linux/kernel/building.md
+ 
+
+================================================================================
+Creation: 2021-06-21
+Modification: 2021-06-21
+

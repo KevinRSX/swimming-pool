@@ -26,18 +26,20 @@ if it is not needed.
         mkdir mnt/
         mkdir mnt/fat32 # /boot/firmware
         mkdir mnt/ext4 # rootfs: /
+Add mnt/ to the .gitignore file so that it will not be tracked.
 
 7. Plug in the TF card and connect it to the VM
 
 8. Mount the partitions to the created directories:
         sudo mount /dev/sdb1 mnt/fat32
         sudo mount /dev/sdb2 mnt/ext4
-For different sdb devices, use $lsblk to check which are the TF card partitions
+For different sdb devices, use $lsblk to check which are the TF card partitions.
 
 9. Install kernel modules:
         sudo env PATH=$PATH make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- INSTALL_MOD_PATH=mnt/ext4 modules_install
 
 10. Backup the kernel image, copy the new image and dtb files:
+        KERNEL=vmlinuz
         sudo cp mnt/fat32/$KERNEL mnt/fat32/$KERNEL.old
         sudo cp arch/arm64/boot/Image mnt/fat32/$KERNEL
         sudo cp arch/arm64/boot/dts/broadcom/*.dtb mnt/fat32/
@@ -47,6 +49,7 @@ For different sdb devices, use $lsblk to check which are the TF card partitions
 11. Unmount and eject the TF card:
         sudo umount mnt/fat32
         sudo umount mnt/ext4
+        sudo eject /dev/sdb
 
 More info:
  - https://www.raspberrypi.org/documentation/linux/kernel/building.md

@@ -17,9 +17,9 @@ Environment:
 4. Make the config, default for RPI4 is the following:
         make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- bcm2711_defconfig
 Sometimes the kernel won't compile. Simply disable the corresponding CONFIG item
-if it is not needed.
+if it is not needed using menuconfig in the same manner.
 
-5. Compile the kernel (change cores to 1.5 * cores you allocate to your VM):
+5. Compile the kernel (change n in -jn to 1.5 * no. cores allocated to the VM):
         make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- Image modules dtbs -j3
 
 6. Create directories for mounting

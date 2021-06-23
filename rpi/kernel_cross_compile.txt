@@ -53,6 +53,7 @@ For different sdb devices, use $lsblk to check which are the TF card partitions.
 
 More info:
  - https://www.raspberrypi.org/documentation/linux/kernel/building.md
+ - https://github.com/KevinRSX/rpi-linux-5.6.y/blob/master/rpi_install.sh
  
 
 ================================================================================

@@ -1,0 +1,1 @@
+dwc_otg.lpm_enable=0 maxcpus=1 console=serial0,115200 console=tty1 console=pl011,115200 earlyprintk=serial0,115200 earlycon=pl011,mmio32,0xfe201000 root=LABEL=writable rootfstype=ext4 elevator=deadline rootwait fixrtc splash

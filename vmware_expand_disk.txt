@@ -2,17 +2,19 @@
 2. In VM settings, choose the virtual hard disk you are using for the VM and expand the size(40-50GB would be enough).
 3. Boot your VM.
 4. Open a terminal and
-5. sudo fdisk /dev/sda
-6. Enter p, you should see something like /dev/sda1
-7. Enter d, you should see Partition 1 has been deleted
-8. Enter n to create a new partion and enter p to select primary partition, the rest are default
-9. You should see warnings like Partition #1 contains a ext4 signature.
-10. Enter Y do delete the signature
-11. Enter a to set bootable flag on partition 1
-12. Enter w to write all the changes
-13. Reboot your VM
-14. Login to your VM and use sudo resize2fs /dev/sda1
-15. Use df -h /dev/sda1, you should see your disk is now expanded.
+5. sudo fdisk -l
+6. The first line will contain something like /dev/sda or /dev/nvme0n1. This is your disk name.
+7. sudo fdisk <disk name>
+8. Enter p, you should see something like /dev/sda1
+9. Enter d, you should see Partition 1 has been deleted
+10. Enter n to create a new partion and enter p to select primary partition, the rest are default
+11. You should see warnings like Partition #1 contains a ext4 signature.
+12. Enter Y do delete the signature
+13. Enter a to set bootable flag on partition 1
+14. Enter w to write all the changes
+15. Reboot your VM
+16. Login to your VM and use sudo resize2fs /dev/sda1
+17. Use df -h /dev/sda1, you should see your disk is now expanded.
 
 ================================================================================
 Creation: 2021-08-22

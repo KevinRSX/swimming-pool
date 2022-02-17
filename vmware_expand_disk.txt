@@ -1,18 +1,27 @@
 1. Shutdown your VM.
-2. In VM settings, choose the virtual hard disk you are using for the VM and expand the size(40-50GB would be enough).
+2. In VM settings, choose the virtual hard disk you are using for the VM and expand the size.
+4. Create a snapshot AFTER changing your VM disk size. Old snapshots WILL NOT BE COMPATIBLE.
 3. Boot your VM.
 4. Open a terminal and
-5. sudo fdisk /dev/sda
-6. Enter p, you should see something like /dev/sda1
-7. Enter d, you should see Partition 1 has been deleted
-8. Enter n to create a new partion and enter p to select primary partition, the rest are default
-9. You should see warnings like Partition #1 contains a ext4 signature.
-10. Enter Y do delete the signature
-11. Enter a to set bootable flag on partition 1
-12. Enter w to write all the changes
-13. Reboot your VM
-14. Login to your VM and use sudo resize2fs /dev/sda1
-15. Use df -h /dev/sda1, you should see your disk is now expanded.
+5. sudo fdisk -l
+6. Look on the first line for something like /dev/sda or /dev/nvme. This is your disk name.
+7. sudo fdisk <disk name>
+8. n (for new partition)
+9. Press enter to get the default values until it says "created a new partition of size x"
+10. w (to write to disk)
+11. sudo fdisk -l
+12. Look for a new Device compared to step 5. the /dev/sdax or /dev/nvmex is your device name.
+13. sudo mkfs.ext4 <device name>
+14. sudo mkdir /mnt/files (or whatever you want to call your extra space)
+14. sudo vim /etc/fstab
+15. add this line to the bottom of your file
+   <device name> <part 14 dir> ext4 defaults 0 1
+   
+   for example, mine says:
+   /dev/sda4 /mnt/files ext4 defaults 0 1
+   
+reboot, and you will find your new space in /mnt/files. it's nice to create symlink
+from your os directory to new directories in /mnt/files
 
 ================================================================================
 Creation: 2021-08-22

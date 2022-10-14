@@ -1,7 +1,13 @@
-Adding an existing project to GitHub:
+Add an existing project to GitHub
+=================================
 https://help.github.com/en/articles/adding-an-existing-project-to-github-using-the-command-line
 
-Clone a single branch:
+Clone a single branch
+=====================
 https://www.freecodecamp.org/news/git-clone-branch-how-to-clone-a-specific-branch/
 git clone --branch <branchname> --single-branch <remote-repo-url>
 
+Move some files from one repo to another while preserving their commit history
+==============================================================================
+The method is to read commits into patches and than apply the patches in another repo.
+https://stackoverflow.com/questions/1365541/how-to-move-some-files-from-one-git-repo-to-another-not-a-clone-preserving-hi
